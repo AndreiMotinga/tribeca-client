@@ -21,28 +21,17 @@ const styles = {
 }
 
 class TemporaryDrawer extends React.Component {
-  state = {
-    isOpen: false
-  }
-
-  toggleDrawer = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    })
-  }
-
   render() {
-    const { classes } = this.props
+    const { classes, isOpen, toggleDrawer } = this.props
 
     return (
       <div>
-        <Button onClick={this.toggleDrawer}>Open Left</Button>
-        <Drawer open={this.state.isOpen} onClose={this.toggleDrawer}>
+        <Drawer open={isOpen} onClose={toggleDrawer}>
           <div
             tabIndex={0}
             role="button"
-            onClick={this.toggleDrawer}
-            onKeyDown={this.toggleDrawer}
+            onClick={toggleDrawer}
+            onKeyDown={toggleDrawer}
           >
             <div className={classes.list}>
               <List>
