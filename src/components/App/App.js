@@ -3,21 +3,12 @@ import PropTypes from "prop-types"
 import classNames from "classnames"
 import { withStyles } from "@material-ui/core/styles"
 import PersistentDrawer from "./PersistentDrawer"
-import CssBaseline from "@material-ui/core/CssBaseline"
 import Nav from "./Nav"
-
-const drawerWidth = 240
+import { DRAWER_WIDTH } from "config"
 
 const styles = theme => ({
   root: {
     display: "flex"
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: "0 8px",
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
   },
   content: {
     marginTop: theme.spacing.unit * 6,
@@ -27,9 +18,9 @@ const styles = theme => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
     }),
-    marginLeft: -drawerWidth
+    marginLeft: -DRAWER_WIDTH
   },
-  withOpenDrawer: {
+  contentWithOpenDrawer: {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen
@@ -53,13 +44,12 @@ class PersistentDrawerLeft extends React.Component {
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
         <Nav toggleDrawer={this.toggleDrawer} />
         <PersistentDrawer isDrawerOpen={isDrawerOpen} />
 
         <main
           className={classNames(classes.content, {
-            [classes.withOpenDrawer]: isDrawerOpen
+            [classes.contentWithOpenDrawer]: isDrawerOpen
           })}
         >
           <p>
