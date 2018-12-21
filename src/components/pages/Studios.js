@@ -15,6 +15,7 @@ import Typography from "@material-ui/core/Typography"
 import IconButton from "@material-ui/core/IconButton"
 import FilterListIcon from "@material-ui/icons/FilterList"
 import { lighten } from "@material-ui/core/styles/colorManipulator"
+import TextField from "@material-ui/core/TextField"
 
 const styles = theme => ({
   root: {
@@ -36,6 +37,10 @@ const styles = theme => ({
 
   actions: {
     color: theme.palette.text.secondary
+  },
+
+  search: {
+    width: 300
   }
 })
 
@@ -43,6 +48,7 @@ class SimpleTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      search: "",
       records: []
     }
   }
@@ -53,8 +59,12 @@ class SimpleTable extends React.Component {
     })
   }
 
+  filter = () => {
+    console.log("filtering")
+  }
+
   render() {
-    const { records } = this.state
+    const { records, search } = this.state
     const { classes } = this.props
 
     return (
@@ -67,9 +77,15 @@ class SimpleTable extends React.Component {
           </div>
           <div className={classes.spacer} />
           <div className={classes.actions}>
-            <IconButton aria-label="Filter list">
-              <FilterListIcon />
-            </IconButton>
+            <TextField
+              autoFocus
+              margin="none"
+              label="Search"
+              type="search"
+              value={search}
+              onChange={this.filter}
+              className={classes.search}
+            />
           </div>
         </Toolbar>
 
