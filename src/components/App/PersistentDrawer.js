@@ -10,44 +10,114 @@ import ListItemText from "@material-ui/core/ListItemText"
 import InboxIcon from "@material-ui/icons/MoveToInbox"
 import MailIcon from "@material-ui/icons/Mail"
 import { DRAWER_WIDTH } from "config"
-import NestedList from "./NestedList"
 
-const PersistentDrawer = ({ classes, isDrawerOpen }) => {
-  return (
-    <Drawer
-      className={classes.drawer}
-      variant="persistent"
-      anchor="left"
-      open={isDrawerOpen}
-      classes={{
-        paper: classes.drawerPaper
-      }}
-    >
-      <Divider />
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
+import Collapse from "@material-ui/core/Collapse"
+import DraftsIcon from "@material-ui/icons/Drafts"
+import SendIcon from "@material-ui/icons/Send"
+import ExpandLess from "@material-ui/icons/ExpandLess"
+import ExpandMore from "@material-ui/icons/ExpandMore"
+import StarBorder from "@material-ui/icons/StarBorder"
+
+class PersistentDrawer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      inbox: false,
+      studios: false
+    }
+  }
+
+  toggle = item => () => {
+    this.setState({ [item]: !this.state[item] })
+  }
+
+  render() {
+    const { classes, isDrawerOpen } = this.props
+    return (
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="left"
+        open={isDrawerOpen}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+      >
+        <List>
+          <ListItem button onClick={this.toggle("inbox")}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText inset primary="Inbox" />
+            {this.state.inbox ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
+          <Collapse in={this.state.inbox} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText inset primary="Starred" />
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText inset primary="Films" />
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText inset primary="Articles" />
+              </ListItem>
+            </List>
+          </Collapse>
+
+          <ListItem button onClick={this.toggle("studios")}>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <InboxIcon />
             </ListItemIcon>
-            <ListItemText primary={text} />
+            <ListItemText inset primary="Studios" />
+            {this.state.studios ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-        ))}
-      </List>
-      <NestedList />
-    </Drawer>
-  )
+          <Collapse in={this.state.studios} timeout="auto" unmountOnExit>
+            <List disablePadding>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText inset primary="Starred" />
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText inset primary="Films" />
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <ListItemIcon>
+                  <StarBorder />
+                </ListItemIcon>
+                <ListItemText inset primary="Articles" />
+              </ListItem>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
+        <List>
+          {["All mail", "Trash", "Spam"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    )
+  }
 }
 
 PersistentDrawer.propTypes = {
@@ -65,6 +135,10 @@ const styles = theme => ({
     zIndex: theme.zIndex.appBar - 100,
     top: 64,
     paddingBottom: 64
+  },
+
+  nested: {
+    paddingLeft: theme.spacing.unit * 3
   }
 })
 
