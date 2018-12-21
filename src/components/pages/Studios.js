@@ -17,6 +17,7 @@ import IconButton from "@material-ui/core/IconButton"
 import FilterListIcon from "@material-ui/icons/FilterList"
 import { lighten } from "@material-ui/core/styles/colorManipulator"
 import TextField from "@material-ui/core/TextField"
+import Moment from "react-moment"
 
 const styles = theme => ({
   root: {
@@ -84,7 +85,6 @@ class SimpleTable extends React.Component {
           <div className={classes.spacer} />
           <div className={classes.actions}>
             <TextField
-              autoFocus
               margin="none"
               label="Search"
               type="search"
@@ -113,7 +113,9 @@ class SimpleTable extends React.Component {
                       <Typography>{record.title}</Typography>
                     </Link>
                   </TableCell>
-                  <TableCell>{record.created_at}</TableCell>
+                  <TableCell>
+                    <Moment format="lll">{record.created_at}</Moment>
+                  </TableCell>
                 </TableRow>
               )
             })}
