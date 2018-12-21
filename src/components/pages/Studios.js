@@ -18,6 +18,7 @@ import FilterListIcon from "@material-ui/icons/FilterList"
 import { lighten } from "@material-ui/core/styles/colorManipulator"
 import TextField from "@material-ui/core/TextField"
 import Moment from "react-moment"
+import TablePagination from "@material-ui/core/TablePagination"
 
 const styles = theme => ({
   root: {
@@ -51,7 +52,10 @@ class SimpleTable extends React.Component {
     super(props)
     this.state = {
       search: "",
-      records: []
+      records: [],
+      total: 0,
+      page: 0,
+      items: 10
     }
   }
 
@@ -63,15 +67,35 @@ class SimpleTable extends React.Component {
     this.setState({ search: e.target.value }, debounce(this.fetch, 300))
   }
 
+  handleChangePage = (event, page) => {
+    this.setState({ page }, this.fetch)
+  }
+
+  handleChangeRowsPerPage = event => {
+    if (!event) return
+    this.setState({ items: event.target.value }, this.fetch)
+  }
+
   fetch = () => {
-    const search = this.state.search
-    axios.get("/studios", { params: { search } }).then(res => {
-      this.setState({ records: res.data.data })
-    })
+    const { page, items, search } = this.state
+    axios
+      .get("/studios", {
+        params: {
+          items,
+          page: page + 1,
+          search
+        }
+      })
+      .then(res => {
+        this.setState({
+          records: res.data.data,
+          total: res.data.total
+        })
+      })
   }
 
   render() {
-    const { records, search } = this.state
+    const { records, search, page, items, total } = this.state
     const { classes } = this.props
 
     return (
@@ -121,6 +145,22 @@ class SimpleTable extends React.Component {
             })}
           </TableBody>
         </Table>
+
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25, 50]}
+          component="div"
+          count={total}
+          rowsPerPage={items}
+          page={page}
+          backIconButtonProps={{
+            "aria-label": "Previous Page"
+          }}
+          nextIconButtonProps={{
+            "aria-label": "Next Page"
+          }}
+          onChangePage={this.handleChangePage}
+          onChangeRowsPerPage={this.handleChangeRowsPerPage}
+        />
       </Paper>
     )
   }
