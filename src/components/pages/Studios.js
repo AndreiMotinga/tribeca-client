@@ -65,8 +65,8 @@ class SimpleTable extends React.Component {
 
   fetch = () => {
     const search = this.state.search
-    axios.get("/studios", { params: { search } }).then(data => {
-      this.setState({ records: data.data })
+    axios.get("/studios", { params: { search } }).then(res => {
+      this.setState({ records: res.data.data })
     })
   }
 
