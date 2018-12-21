@@ -2,6 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "@reach/router"
 import axios from "axios"
+import { debounce } from "debounce"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
@@ -58,7 +59,7 @@ class SimpleTable extends React.Component {
   }
 
   filter = e => {
-    this.setState({ search: e.target.value }, this.fetch)
+    this.setState({ search: e.target.value }, debounce(this.fetch, 300))
   }
 
   fetch = () => {
