@@ -10,6 +10,7 @@ import ListItemText from "@material-ui/core/ListItemText"
 import InboxIcon from "@material-ui/icons/MoveToInbox"
 import MailIcon from "@material-ui/icons/Mail"
 import { DRAWER_WIDTH } from "config"
+import NestedList from "./NestedList"
 
 const PersistentDrawer = ({ classes, isDrawerOpen }) => {
   return (
@@ -44,6 +45,7 @@ const PersistentDrawer = ({ classes, isDrawerOpen }) => {
           </ListItem>
         ))}
       </List>
+      <NestedList />
     </Drawer>
   )
 }
@@ -61,7 +63,8 @@ const styles = theme => ({
   drawerPaper: {
     width: DRAWER_WIDTH,
     zIndex: theme.zIndex.appBar - 100,
-    top: 64
+    top: 64,
+    paddingBottom: 64
   }
 })
 

@@ -11,7 +11,7 @@ import Studios from "components/pages/Studios"
 
 class PersistentDrawerLeft extends React.Component {
   state = {
-    isDrawerOpen: false
+    isDrawerOpen: true
   }
 
   toggleDrawer = () => {
