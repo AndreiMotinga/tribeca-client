@@ -61,14 +61,14 @@ const styles = theme => ({
 
 class PersistentDrawerLeft extends React.Component {
   render() {
-    const { classes, theme, open } = this.props
+    const { classes, theme, isDrawerOpen } = this.props
 
     return (
       <Drawer
         className={classes.drawer}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={isDrawerOpen}
         classes={{
           paper: classes.drawerPaper
         }}
