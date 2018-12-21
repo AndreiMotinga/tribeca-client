@@ -4,7 +4,7 @@ import classNames from "classnames"
 import { withStyles } from "@material-ui/core/styles"
 import PersistentDrawer from "./PersistentDrawer"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import AppBar from "@material-ui/core/AppBar"
+import Nav from "./Nav"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import IconButton from "@material-ui/core/IconButton"
@@ -16,16 +16,6 @@ const styles = theme => ({
   root: {
     display: "flex"
   },
-  // appBar: {
-  //   transition: theme.transitions.create(["margin", "width"], {
-  //     easing: theme.transitions.easing.sharp,
-  //     duration: theme.transitions.duration.leavingScreen
-  //   })
-  // },
-  // menuButton: {
-  //   marginLeft: 12,
-  //   marginRight: 20
-  // },
   drawer: {
     width: drawerWidth,
     flexShrink: 0
@@ -76,20 +66,7 @@ class PersistentDrawerLeft extends React.Component {
     return (
       <div className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed">
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.toggleDrawer}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Persistent drawer
-            </Typography>
-          </Toolbar>
-        </AppBar>
+        <Nav toggleDrawer={this.toggleDrawer} />
         <PersistentDrawer open={open} />
         <main
           className={classNames(classes.content, {
