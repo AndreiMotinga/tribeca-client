@@ -100,7 +100,7 @@ class SimpleTable extends React.Component {
           <TableBody>
             {records.map(record => {
               return (
-                <TableRow key={record.id}>
+                <TableRow hover key={record.id}>
                   <TableCell padding="dense">{record.id}</TableCell>
                   <TableCell>
                     <Link to={`/studios/${record.id}/edit`}>
