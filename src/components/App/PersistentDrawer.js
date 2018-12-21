@@ -5,18 +5,14 @@ import Drawer from "@material-ui/core/Drawer"
 import List from "@material-ui/core/List"
 import Divider from "@material-ui/core/Divider"
 import ListItem from "@material-ui/core/ListItem"
-import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
-import InboxIcon from "@material-ui/icons/MoveToInbox"
-import MailIcon from "@material-ui/icons/Mail"
 import { DRAWER_WIDTH } from "config"
 
 import Collapse from "@material-ui/core/Collapse"
-import DraftsIcon from "@material-ui/icons/Drafts"
-import SendIcon from "@material-ui/icons/Send"
 import ExpandLess from "@material-ui/icons/ExpandLess"
 import ExpandMore from "@material-ui/icons/ExpandMore"
-import StarBorder from "@material-ui/icons/StarBorder"
+
+import { Link } from "@reach/router"
 
 class PersistentDrawer extends React.Component {
   constructor(props) {
@@ -45,61 +41,52 @@ class PersistentDrawer extends React.Component {
       >
         <List>
           <ListItem button onClick={this.toggle("inbox")}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="Inbox" />
+            <ListItemText primary="Inbox" />
             {this.state.inbox ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={this.state.inbox} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
+            <List disablePadding>
               <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Starred" />
+                <ListItemText primary="Starred" />
               </ListItem>
               <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Films" />
+                <ListItemText primary="Films" />
               </ListItem>
               <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Articles" />
+                <ListItemText primary="Articles" />
               </ListItem>
             </List>
           </Collapse>
 
           <ListItem button onClick={this.toggle("studios")}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText inset primary="Studios" />
+            <ListItemText primary="Studios" />
             {this.state.studios ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
           <Collapse in={this.state.studios} timeout="auto" unmountOnExit>
-            <List disablePadding>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Starred" />
+            <List>
+              <ListItem
+                button
+                component={Link}
+                to="/studios"
+                className={classes.nested}
+              >
+                <ListItemText primary="Studios" />
               </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Films" />
+              <ListItem
+                button
+                component={Link}
+                to="/awards"
+                className={classes.nested}
+              >
+                <ListItemText primary="Awards" />
               </ListItem>
-              <ListItem button className={classes.nested}>
-                <ListItemIcon>
-                  <StarBorder />
-                </ListItemIcon>
-                <ListItemText inset primary="Articles" />
+              <ListItem
+                button
+                component={Link}
+                to="/partners"
+                className={classes.nested}
+              >
+                <ListItemText primary="Partners" />
               </ListItem>
             </List>
           </Collapse>
@@ -108,9 +95,6 @@ class PersistentDrawer extends React.Component {
         <List>
           {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}

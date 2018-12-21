@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { Link } from "@reach/router"
 import { withStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -18,8 +19,15 @@ const Nav = ({ classes, toggleDrawer }) => {
         >
           <MenuIcon />
         </IconButton>
-        <Typography variant="h6" color="inherit" noWrap>
-          Persistent drawer
+        <Typography
+          variant="h6"
+          color="inherit"
+          noWrap
+          component={Link}
+          to="/"
+          style={{ textDecoration: "none" }}
+        >
+          Tribeca Admin
         </Typography>
       </Toolbar>
     </AppBar>
