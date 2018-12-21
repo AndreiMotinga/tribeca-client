@@ -7,6 +7,7 @@ import PersistentDrawer from "./PersistentDrawer"
 import Nav from "./Nav"
 import { DRAWER_WIDTH } from "config"
 import Home from "components/pages/Home"
+import Studios from "components/pages/Studios"
 
 class PersistentDrawerLeft extends React.Component {
   state = {
@@ -33,6 +34,7 @@ class PersistentDrawerLeft extends React.Component {
         >
           <Router>
             <Home path="/" />
+            <Studios path="/studios" />
           </Router>
         </main>
       </div>
