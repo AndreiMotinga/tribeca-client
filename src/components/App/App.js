@@ -8,6 +8,7 @@ import Nav from "./Nav"
 import { DRAWER_WIDTH } from "config"
 import Home from "components/pages/Home"
 import Studios from "components/pages/Studios"
+import "./App.css"
 
 class PersistentDrawerLeft extends React.Component {
   state = {

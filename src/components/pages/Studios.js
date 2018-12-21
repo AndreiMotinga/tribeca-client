@@ -1,5 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { Link } from "@reach/router"
 import axios from "axios"
 import { withStyles } from "@material-ui/core/styles"
 import Table from "@material-ui/core/Table"
@@ -12,8 +13,6 @@ import Paper from "@material-ui/core/Paper"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
 import IconButton from "@material-ui/core/IconButton"
-import Tooltip from "@material-ui/core/Tooltip"
-import DeleteIcon from "@material-ui/icons/Delete"
 import FilterListIcon from "@material-ui/icons/FilterList"
 import { lighten } from "@material-ui/core/styles/colorManipulator"
 
@@ -87,7 +86,11 @@ class SimpleTable extends React.Component {
               return (
                 <TableRow key={record.id}>
                   <TableCell padding="dense">{record.id}</TableCell>
-                  <TableCell>{record.title}</TableCell>
+                  <TableCell>
+                    <Link to={`/studios/${record.id}/edit`}>
+                      <Typography>{record.title}</Typography>
+                    </Link>
+                  </TableCell>
                   <TableCell>{record.created_at}</TableCell>
                 </TableRow>
               )
