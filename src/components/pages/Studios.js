@@ -8,14 +8,12 @@ import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import TableCell from "@material-ui/core/TableCell"
 import TableHead from "@material-ui/core/TableHead"
+import TableSortLabel from "@material-ui/core/TableSortLabel"
 import TableRow from "@material-ui/core/TableRow"
 import Paper from "@material-ui/core/Paper"
 
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
-import IconButton from "@material-ui/core/IconButton"
-import FilterListIcon from "@material-ui/icons/FilterList"
-import { lighten } from "@material-ui/core/styles/colorManipulator"
 import TextField from "@material-ui/core/TextField"
 import Moment from "react-moment"
 import TablePagination from "@material-ui/core/TablePagination"
@@ -55,7 +53,9 @@ class SimpleTable extends React.Component {
       records: [],
       total: 0,
       page: 0,
-      items: 10
+      items: 10,
+      order: "desc",
+      orderBy: "created_at"
     }
   }
 
@@ -77,13 +77,14 @@ class SimpleTable extends React.Component {
   }
 
   fetch = () => {
-    const { page, items, search } = this.state
+    const { page, items, search, orderBy, order } = this.state
     axios
       .get("/studios", {
         params: {
           items,
           page: page + 1,
-          search
+          search,
+          order: `${orderBy} ${order}`
         }
       })
       .then(res => {
@@ -94,8 +95,18 @@ class SimpleTable extends React.Component {
       })
   }
 
+  handleSort = orderBy => () => {
+    let order = "desc"
+
+    if (this.state.orderBy === orderBy && this.state.order === "desc") {
+      order = "asc"
+    }
+
+    this.setState({ order, orderBy }, this.fetch)
+  }
+
   render() {
-    const { records, search, page, items, total } = this.state
+    const { records, search, page, items, total, order, orderBy } = this.state
     const { classes } = this.props
 
     return (
@@ -122,9 +133,33 @@ class SimpleTable extends React.Component {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <TableCell padding="dense">Id</TableCell>
-              <TableCell>Title</TableCell>
-              <TableCell>Created</TableCell>
+              <TableCell padding="dense">
+                <TableSortLabel
+                  active={orderBy === "id"}
+                  direction={order}
+                  onClick={this.handleSort("id")}
+                >
+                  Id
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "title"}
+                  direction={order}
+                  onClick={this.handleSort("title")}
+                >
+                  Title
+                </TableSortLabel>
+              </TableCell>
+              <TableCell>
+                <TableSortLabel
+                  active={orderBy === "created_at"}
+                  direction={order}
+                  onClick={this.handleSort("created_at")}
+                >
+                  Created
+                </TableSortLabel>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
