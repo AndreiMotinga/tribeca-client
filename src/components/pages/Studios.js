@@ -166,14 +166,22 @@ class SimpleTable extends React.Component {
             {records.map(record => {
               return (
                 <TableRow hover key={record.id}>
-                  <TableCell padding="dense">{record.id}</TableCell>
+                  <TableCell padding="dense">
+                    <Link to={`/studios/${record.id}/edit`}>
+                      <Typography>{record.id}</Typography>
+                    </Link>
+                  </TableCell>
                   <TableCell>
                     <Link to={`/studios/${record.id}/edit`}>
                       <Typography>{record.title}</Typography>
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <Moment format="lll">{record.created_at}</Moment>
+                    <Link to={`/studios/${record.id}/edit`}>
+                      <Typography>
+                        <Moment format="lll">{record.created_at}</Moment>
+                      </Typography>
+                    </Link>
                   </TableCell>
                 </TableRow>
               )
