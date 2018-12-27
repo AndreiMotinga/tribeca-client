@@ -62,7 +62,6 @@ class StudioForm extends React.Component {
                   onChange={this.handleChange("title")}
                   margin="normal"
                 />
-
                 <TextField
                   id="slug"
                   label="Slug"
@@ -71,29 +70,47 @@ class StudioForm extends React.Component {
                   onChange={this.handleChange("slug")}
                   margin="normal"
                 />
-
-                <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="age-simple">Age</InputLabel>
-                  <Select
-                    value={studio.category}
-                    onChange={this.handleChange}
-                    inputProps={{
-                      name: "age",
-                      id: "age-simple"
-                    }}
-                  >
-                    <MenuItem value="">
-                      <em>None</em>
-                    </MenuItem>
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl>
-
+                <TextField
+                  id="sort_order"
+                  label="Sort Order"
+                  value={studio.sort_order}
+                  onChange={this.handleChange("sort_order")}
+                  type="number"
+                  margin="normal"
+                />{" "}
+                <TextField
+                  id="category"
+                  select
+                  label="Category"
+                  value={studio.category}
+                  onChange={this.handleChange("category")}
+                  margin="normal"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value="Feature Documentary">
+                    Feature Documentary
+                  </MenuItem>
+                  <MenuItem value="Short Documentary">
+                    Short Documentary
+                  </MenuItem>
+                  <MenuItem value="Feature Documentary">
+                    Feature Documentary
+                  </MenuItem>
+                  <MenuItem value="Original Series">Original Series</MenuItem>
+                  <MenuItem value="Short Documentary and VR Film">
+                    Short Documentary and VR Film
+                  </MenuItem>
+                  <MenuItem value="Short Film Series">
+                    Short Film Series
+                  </MenuItem>
+                  <MenuItem value="Short Film Competition">
+                    Short Film Competition
+                  </MenuItem>
+                </TextField>
                 <div>{studio.summary}</div>
                 <div>{studio.body}</div>
-                <div>{studio.sort_order}</div>
               </Paper>
             </Grid>
 
