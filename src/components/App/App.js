@@ -13,7 +13,7 @@ import "./App.css"
 
 class PersistentDrawerLeft extends React.Component {
   state = {
-    isDrawerOpen: true
+    isDrawerOpen: false
   }
 
   toggleDrawer = () => {

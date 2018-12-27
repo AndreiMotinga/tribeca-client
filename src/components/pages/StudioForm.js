@@ -1,6 +1,16 @@
 import React from "react"
 import axios from "axios"
 
+import { withStyles } from "@material-ui/core/styles"
+import MenuItem from "@material-ui/core/MenuItem"
+import TextField from "@material-ui/core/TextField"
+import InputLabel from "@material-ui/core/InputLabel"
+import FormControl from "@material-ui/core/FormControl"
+import Select from "@material-ui/core/Select"
+
+import Paper from "@material-ui/core/Paper"
+import Grid from "@material-ui/core/Grid"
+
 class StudioForm extends React.Component {
   state = {
     studio: null
@@ -19,20 +29,107 @@ class StudioForm extends React.Component {
     console.log("submitting form")
   }
 
+  handleChange = name => event => {
+    console.log(name, event)
+    const studio = this.state.studio
+    studio[name] = event.target.value
+    this.setState({ studio })
+  }
+
   render() {
     const studio = this.state.studio
+    const { classes } = this.props
 
     if (!studio) {
       return null
     }
 
     return (
-      <form onSubmit={this.submit}>
-        <h1>{studio.title}</h1>
+      <div>
         <button onClick={this.submit}>Submit</button>
-      </form>
+        <br />
+        <br />
+
+        <form onSubmit={this.submit}>
+          <Grid container spacing={16}>
+            <Grid item xs={12} lg={9}>
+              <Paper className={classes.paper}>
+                <TextField
+                  id="title"
+                  label="Title"
+                  fullWidth
+                  value={studio.title}
+                  onChange={this.handleChange("title")}
+                  margin="normal"
+                />
+
+                <TextField
+                  id="slug"
+                  label="Slug"
+                  fullWidth
+                  value={studio.slug}
+                  onChange={this.handleChange("slug")}
+                  margin="normal"
+                />
+
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="age-simple">Age</InputLabel>
+                  <Select
+                    value={studio.category}
+                    onChange={this.handleChange}
+                    inputProps={{
+                      name: "age",
+                      id: "age-simple"
+                    }}
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+
+                <div>{studio.summary}</div>
+                <div>{studio.body}</div>
+                <div>{studio.sort_order}</div>
+              </Paper>
+            </Grid>
+
+            <Grid item xs={12} lg={3}>
+              <Paper className={classes.paper}>
+                <img src={studio.image.small.url} alt="" />
+              </Paper>
+            </Grid>
+          </Grid>
+        </form>
+      </div>
     )
   }
 }
 
-export default StudioForm
+const styles = theme => ({
+  // container: {
+  //   display: "flex",
+  //   flexWrap: "wrap"
+  // }
+  // textField: {
+  //   marginLeft: theme.spacing.unit,
+  //   marginRight: theme.spacing.unit,
+  //   width: 200
+  // },
+  // dense: {
+  //   marginTop: 19
+  // },
+  // menu: {
+  //   width: 200
+  // }
+  paper: {
+    padding: theme.spacing.unit * 2
+    // textAlign: "center",
+    // color: theme.palette.text.secondary
+  }
+})
+
+export default withStyles(styles)(StudioForm)
